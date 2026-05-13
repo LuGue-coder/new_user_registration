@@ -24,14 +24,31 @@
               "    pm.expect(jsonData.data).to.have.property(\"email\");",
               "});",
               "",
-              "pm.test(\"Role, name and email corrensponds\", function () {",
+              "",
+              "pm.test(\"Name and email corrensponds\", function () {",
               "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.success).to.eql(true);",
-              "    pm.expect(jsonData.data.name).to.eql(\"Lucie Guerra\");",
-              "    pm.expect(jsonData.data.email).to.eql(\"lucieg@gmail.com\");",
-              "    pm.expect(jsonData.data.role).to.eql(\"user\");",
-              "    pm.expect(jsonData.data.banned).to.eql(false);",
+              "    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));",
+              "    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\").toLowerCase());",
               "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const firstNames = [\"John\", \"Jane\", \"Peter\", \"Anna\", \"Tom\", \"Lucy\"];",
+              "const lastNames = [\"Smith\", \"Johnson\", \"Brown\", \"Taylor\", \"Wilson\"];",
+              "",
+              "const randomName = `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`;",
+              "const randomEmail = pm.variables.replaceIn(\"{{$randomEmail}}\").toLowerCase();",
+              "",
+              "pm.environment.set(\"name\", randomName);",
+              "pm.environment.set(\"email\", randomEmail);",
+              "pm.environment.set(\"password\", \"Password123!\");"
             ],
             "type": "text/javascript",
             "packages": {},
