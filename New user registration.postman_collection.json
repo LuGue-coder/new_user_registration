@@ -1,0 +1,98 @@
+{
+  "info": {
+    "_postman_id": "9f348216-ce98-42f7-af31-278478bcb238",
+    "name": "New user registration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54014147",
+    "_collection_link": "https://go.postman.co/collection/54014147-9f348216-ce98-42f7-af31-278478bcb238?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "user registration",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "",
+              "pm.test(\"Email\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data).to.have.property(\"email\");",
+              "});",
+              "",
+              "pm.test(\"Role, name and email corrensponds\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "    pm.expect(jsonData.data.name).to.eql(\"Lucie Guerra\");",
+              "    pm.expect(jsonData.data.email).to.eql(\"lucieg@gmail.com\");",
+              "    pm.expect(jsonData.data.role).to.eql(\"user\");",
+              "    pm.expect(jsonData.data.banned).to.eql(false);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\":\"{{email}}\",\n    \"name\":\"{{name}}\",\n    \"password\":\"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}/user/create",
+          "host": [
+            "{{url_base}}"
+          ],
+          "path": [
+            "user",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url_base",
+      "value": "https://da.czechibank.ostrava.digital/api/v1"
+    }
+  ]
+}
