@@ -24,7 +24,8 @@ jobs:
         
       - name: Run Postman Collection
         run: newman run new_user_registration.postman_collection.json --environment Czechibank.postman_environment.json 
-
+      - name: Debug - list files
+        run: ls -la
       - name: Export email to GitHub ENV
         run: |
           EMAIL=$(node -e "
