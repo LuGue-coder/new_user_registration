@@ -1,0 +1,31 @@
+name: Czechibank Registration Test
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Install pg
+        run: npm install pg
+        
+      - name: Run Postman Collection
+        run: newman run New user registration.postman_collection.json
+
+      
+    
+
+
