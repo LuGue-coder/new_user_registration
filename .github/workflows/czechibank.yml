@@ -57,6 +57,18 @@ jobs:
 
             verifyUser();
           "
-    
+          await client.connect();
+          console.log('DB připojení úspěšné');
+
+          const email = process.env.REGISTERED_EMAIL.toLowerCase();
+          const result = await client.query(
+          'SELECT * FROM users WHERE email = $1',[email]);
+
+          if (result.rows.length === 0) {
+          console.error('Uživatel ' + email + ' nebyl nalezen v DB');
+          process.exit(1);
+          } else {
+              console.log('OK: Uživatel nalezen:', result.rows[0]);
+          }
 
 
