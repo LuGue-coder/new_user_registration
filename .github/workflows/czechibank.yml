@@ -7,6 +7,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
 
     steps:
       - name: Checkout repo
@@ -32,6 +34,29 @@ jobs:
             console.log(emailVar.value);
           ")
           echo "REGISTERED_EMAIL=$EMAIL" >> $GITHUB_ENV
+
+      - name: Verify user in DB
+        run: |
+          node -e "
+            const { Client } = require('pg');
+            const client = new Client({
+              connectionString: process.env.DB_CONNECTION_STRING
+            });
+
+            async function verifyUser() {
+              try {
+                await client.connect();
+                console.log('DB připojení úspěšné');
+              } catch (err) {
+                console.error('CHYBA při připojení:', err.message);
+                process.exit(1);
+              } finally {
+                await client.end();
+              }
+            }
+
+            verifyUser();
+          "
     
 
 
