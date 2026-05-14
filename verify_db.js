@@ -10,7 +10,7 @@ async function verifyUser() {
 
     const email = process.env.REGISTERED_EMAIL.toLowerCase();
     const result = await client.query(
-      'SELECT * FROM user WHERE email = $1',
+      'SELECT * FROM "user" WHERE email = $1',
       [email]
     );
 
