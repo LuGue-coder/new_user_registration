@@ -1,5 +1,7 @@
 # Czechibank API Test Automation
 
+[![Czechibank Registration Test](https://github.com/LuGue-coder/new_user_registration/actions/workflows/czechibank.yml/badge.svg)](https://github.com/LuGue-coder/new_user_registration/actions/workflows/czechibank.yml)
+
 ## About
 Automated API testing pipeline for Czechibank user registration, built with Postman and GitHub Actions.
 
