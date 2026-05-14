@@ -27,7 +27,7 @@ jobs:
       - name: Run Postman Collection
         run: newman run new_user_registration.postman_collection.json --environment Czechibank.postman_environment.json --export-environment exported_env.json
       - name: Export email to GitHub ENV
-        run: 
+        run: |
           EMAIL=$(node -e "
             const env = require('./exported_env.json');
             const emailVar = env.values.find(v => v.key === 'email');
